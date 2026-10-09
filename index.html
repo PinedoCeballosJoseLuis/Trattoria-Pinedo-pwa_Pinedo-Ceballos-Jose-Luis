@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#14532D">
+  <title>Trattoria – Restaurante italiano</title>
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+  <header class="encabezado">
+    <img src="img/logo.png" alt="Logo de Trattoria Pinedo" class="logo" width="56" height="56">
+    <h1>Trattoria Pinedo</h1>
+  </header>
+
+  <main>
+    <section id="catalogo" aria-labelledby="titulo-catalogo">
+      <h2 id="titulo-catalogo">Nuestro menú</h2>
+      <div id="productos" class="grid" aria-live="polite">Cargando catálogo…</div>
+    </section>
+  </main>
+
+  <footer class="pie">
+    <p>Trattoria Pinedo · Pastas y cocina italiana</p>
+    <p>Mar-Dom 1:00 PM - 10:00 PM · Blvd. Principal #420 · Tel: (662) 555-4321</p>
+    <p>PINEDO CEBALLOS JOSE LUIS · Grupo 10-1</p>
+  </footer>
+
+  <script>
+    const contenedor = document.getElementById('productos');
+    fetch('catalogo.json')
+      .then(r => r.json())
+      .then(items => {
+        contenedor.innerHTML = '';
+        items.forEach(p => {
+          const art = document.createElement('article');
+          art.className = 'tarjeta';
+          art.innerHTML =
+            '<img src="' + p.imagen + '" alt="' + p.nombre + '" loading="lazy" onerror="this.style.visibility=\'hidden\'">' +
+            '<span class="categoria">' + p.categoria + '</span>' +
+            '<h3>' + p.nombre + '</h3>' +
+            '<p class="descripcion">' + p.descripcion + '</p>' +
+            '<p class="precio">$' + p.precio.toFixed(2) + ' MXN</p>' +
+            '<p class="stock">Stock: ' + p.stock + '</p>';
+          contenedor.appendChild(art);
+        });
+      })
+      .catch(() => { contenedor.textContent = 'No se pudo cargar el catálogo.'; });
+  </script>
+</body>
+</html>

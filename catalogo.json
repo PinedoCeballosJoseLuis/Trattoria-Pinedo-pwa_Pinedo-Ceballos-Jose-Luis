@@ -1,0 +1,17 @@
+[
+  { "id": 1, "nombre": "Spaghetti boloñesa", "categoria": "Pastas", "descripcion": "Pasta fresca con salsa boloñesa tradicional y carne selecta.", "precio": 165, "stock": 25, "imagen": "img/spaghetti-bolonesa.jpg" },
+  { "id": 2, "nombre": "Fettuccine Alfredo", "categoria": "Pastas", "descripcion": "Fettuccine bañado en cremosa salsa Alfredo y queso parmesano.", "precio": 170, "stock": 25, "imagen": "img/fettuccine-alfredo.jpg" },
+  { "id": 3, "nombre": "Penne arrabbiata", "categoria": "Pastas", "descripcion": "Penne al dente con salsa de tomate picante y albahaca.", "precio": 155, "stock": 22, "imagen": "img/penne-arrabbiata.jpg" },
+  { "id": 4, "nombre": "Lasaña de carne", "categoria": "Pastas", "descripcion": "Capas de pasta fresca, boloñesa, bechamel y parmesano gratinado.", "precio": 185, "stock": 14, "imagen": "img/lasana-carne.jpg" },
+  { "id": 5, "nombre": "Ravioles de espinaca", "categoria": "Pastas", "descripcion": "Ravioles rellenos de espinaca y requesón con mantequilla y salvia.", "precio": 175, "stock": 16, "imagen": "img/ravioles-espinaca.jpg" },
+  { "id": 6, "nombre": "Bruschetta", "categoria": "Entradas", "descripcion": "Pan rústico tostado con tomate fresco, ajo y aceite de oliva.", "precio": 85, "stock": 20, "imagen": "img/bruschetta.jpg" },
+  { "id": 7, "nombre": "Pan de ajo", "categoria": "Entradas", "descripcion": "Horneado con mantequilla de ajo artesanal y finas hierbas.", "precio": 60, "stock": 30, "imagen": "img/pan-de-ajo.jpg" },
+  { "id": 8, "nombre": "Ensalada caprese", "categoria": "Entradas", "descripcion": "Mozzarella fresca, tomate bola, albahaca y reducción de balsámico.", "precio": 110, "stock": 15, "imagen": "img/ensalada-caprese.jpg" },
+  { "id": 9, "nombre": "Sopa minestrone", "categoria": "Entradas", "descripcion": "Sopa tradicional italiana de verduras de temporada y pasta corta.", "precio": 80, "stock": 12, "imagen": "img/sopa-minestrone.jpg" },
+  { "id": 10, "nombre": "Carpaccio de res", "categoria": "Entradas", "descripcion": "Finas láminas de lomo de res con alcaparras, arúgula y parmesano.", "precio": 140, "stock": 10, "imagen": "img/carpaccio-res.jpg" },
+  { "id": 11, "nombre": "Tiramisú", "categoria": "Postres y bebidas", "descripcion": "Clásico postre italiano con bizcochos, café exprés y mascarpone.", "precio": 85, "stock": 18, "imagen": "img/tiramisu.jpg" },
+  { "id": 12, "nombre": "Panna cotta", "categoria": "Postres y bebidas", "descripcion": "Postre cremoso de nata con coulis de frutos rojos silvestres.", "precio": 75, "stock": 15, "imagen": "img/panna-cotta.jpg" },
+  { "id": 13, "nombre": "Cannoli", "categoria": "Postres y bebidas", "descripcion": "Tubo crujiente relleno de crema dulce de ricotta y trocitos de chocolate.", "precio": 70, "stock": 20, "imagen": "img/cannoli.jpg" },
+  { "id": 14, "nombre": "Soda italiana", "categoria": "Postres y bebidas", "descripcion": "Bebida refrescante con jarabe artesanal de frutas y agua mineral.", "precio": 50, "stock": 40, "imagen": "img/soda-italiana.jpg" },
+  { "id": 15, "nombre": "Espresso", "categoria": "Postres y bebidas", "descripcion": "Café exprés italiano con cuerpo intenso y aroma profundo.", "precio": 40, "stock": 50, "imagen": "img/espresso.jpg" }
+]
