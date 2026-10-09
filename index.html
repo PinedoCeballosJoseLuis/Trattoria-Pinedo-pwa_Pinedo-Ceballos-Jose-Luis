@@ -26,26 +26,22 @@
     <p>PINEDO CEBALLOS JOSE LUIS · Grupo 10-1</p>
   </footer>
 
+  <!-- Archivos que aún no existen: se activan conforme se crean -->
+  <!-- <link rel="manifest" href="manifest.json"> -->
+  <!-- <link rel="icon" href="icons/icon.svg" type="image/svg+xml"> -->
+  <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"> -->
+  <!-- <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script> -->
+  <script src="js/csr.js"></script>
+  <!-- <script src="js/carrito.js"></script> -->
+  <!-- <script src="js/notificaciones.js"></script> -->
+  <!-- <script src="js/geolocalizacion.js"></script> -->
+  <!-- <script src="js/app.js"></script> -->
+  <!--
   <script>
-    const contenedor = document.getElementById('productos');
-    fetch('catalogo.json')
-      .then(r => r.json())
-      .then(items => {
-        contenedor.innerHTML = '';
-        items.forEach(p => {
-          const art = document.createElement('article');
-          art.className = 'tarjeta';
-          art.innerHTML =
-            '<img src="' + p.imagen + '" alt="' + p.nombre + '" loading="lazy" onerror="this.style.visibility=\'hidden\'">' +
-            '<span class="categoria">' + p.categoria + '</span>' +
-            '<h3>' + p.nombre + '</h3>' +
-            '<p class="descripcion">' + p.descripcion + '</p>' +
-            '<p class="precio">$' + p.precio.toFixed(2) + ' MXN</p>' +
-            '<p class="stock">Stock: ' + p.stock + '</p>';
-          contenedor.appendChild(art);
-        });
-      })
-      .catch(() => { contenedor.textContent = 'No se pudo cargar el catálogo.'; });
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('sw.js');
+    }
   </script>
+  -->
 </body>
 </html>
