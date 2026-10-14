@@ -90,3 +90,41 @@ main h2 { color: var(--verde); margin-bottom: 1rem; }
   cursor: pointer;
 }
 .btn-agregar:hover { background: var(--verde-claro); }
+
+.filtros { display: flex; flex-wrap: wrap; gap: .5rem; margin-bottom: 1rem; }
+.btn-filtro {
+  padding: .4rem 1rem;
+  border: 1px solid var(--verde);
+  border-radius: 999px;
+  background: #fff;
+  color: var(--verde);
+  font-weight: 700;
+  cursor: pointer;
+}
+.btn-filtro.activo { background: var(--verde); color: var(--crema); }
+
+#pedido { margin-top: 2rem; }
+.lista-carrito { list-style: none; padding: 0; display: grid; gap: .5rem; }
+.item-carrito {
+  display: grid;
+  grid-template-columns: 1fr auto auto auto;
+  align-items: center;
+  gap: .75rem;
+  background: #fff;
+  border: 1px solid var(--borde);
+  border-radius: 8px;
+  padding: .5rem .75rem;
+}
+.item-controles { display: flex; align-items: center; gap: .5rem; }
+.item-carrito button {
+  min-width: 2rem;
+  padding: .25rem;
+  border: 1px solid var(--verde);
+  border-radius: 6px;
+  background: #fff;
+  color: var(--verde);
+  cursor: pointer;
+}
+.item-subtotal { font-weight: 700; color: var(--verde); }
+.total { margin-top: 1rem; font-size: 1.2rem; text-align: right; }
+.vacio { color: #57534e; }

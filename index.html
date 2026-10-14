@@ -16,7 +16,14 @@
   <main>
     <section id="catalogo" aria-labelledby="titulo-catalogo">
       <h2 id="titulo-catalogo">Nuestro menú</h2>
+      <div id="filtros" class="filtros" role="group" aria-label="Filtrar por categoría"></div>
       <div id="productos" class="grid" aria-live="polite">Cargando catálogo…</div>
+    </section>
+
+    <section id="pedido" aria-labelledby="titulo-pedido">
+      <h2 id="titulo-pedido">Tu pedido</h2>
+      <ul id="lista-carrito" class="lista-carrito"></ul>
+      <p class="total">Total: <strong id="total-carrito">$0.00 MXN</strong></p>
     </section>
   </main>
 
@@ -32,7 +39,7 @@
   <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"> -->
   <!-- <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script> -->
   <script src="js/csr.js"></script>
-  <!-- <script src="js/carrito.js"></script> -->
+  <script src="js/carrito.js"></script>
   <!-- <script src="js/notificaciones.js"></script> -->
   <!-- <script src="js/geolocalizacion.js"></script> -->
   <!-- <script src="js/app.js"></script> -->
