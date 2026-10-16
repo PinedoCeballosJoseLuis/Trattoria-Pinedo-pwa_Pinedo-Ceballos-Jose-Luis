@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Catálogo - Trattoria</title>
+</head>
+<body>
+  <h1>Catálogo Trattoria</h1>
+  <table border="1" cellpadding="6">
+    <thead>
+      <tr><th>Nombre</th><th>Categoría</th><th>Precio</th></tr>
+    </thead>
+    <tbody>
+      {% for p in productos %}
+      <tr>
+        <td>{{ p.nombre }}</td>
+        <td>{{ p.categoria }}</td>
+        <td>${{ p.precio }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</body>
+</html>
