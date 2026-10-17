@@ -17,6 +17,13 @@
 | 3 | (hash del avance 3) | — |
 | 4 | (se escribe en el reporte PDF) | — |
 
+## Comparación SSR vs CSR
+
+Al presionar Ctrl+U (ver código fuente) se nota la diferencia: en SSR el servidor Django entrega los productos ya escritos en el HTML; en CSR el HTML llega con el `<div id="catalogo">` vacío y los productos los dibuja el JavaScript en el navegador.
+
+![Código fuente SSR](docs/captura-ssr.png)
+![Código fuente CSR](docs/captura-csr.png)
+
 ## Créditos de imágenes
 
 Fotos de productos tomadas de Wikimedia Commons (referenciales).
