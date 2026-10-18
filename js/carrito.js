@@ -58,7 +58,36 @@ function pintarCarrito() {
     lista.appendChild(li);
   });
   document.getElementById('total-carrito').textContent = '$' + calcularTotal().toFixed(2) + ' MXN';
+
+  const listaSync = document.getElementById('carrito-lista');
+  if (listaSync) {
+    listaSync.innerHTML = carrito.length ? '' : '<li class="vacio">Sin productos.</li>';
+    carrito.forEach(i => {
+      const li = document.createElement('li');
+      li.textContent = i.nombre + ' x' + i.cantidad + ' — $' + (i.precio * i.cantidad).toFixed(2);
+      listaSync.appendChild(li);
+    });
+    document.getElementById('carrito-total').textContent = calcularTotal().toFixed(2);
+  }
 }
+
+// Recarga el carrito desde localStorage (sincroniza pestañas/vistas)
+function sincronizar(mensaje) {
+  try { carrito = JSON.parse(localStorage.getItem(CLAVE)) || []; } catch (e) { carrito = []; }
+  pintarCarrito();
+  const m = document.getElementById('carrito-mensaje');
+  if (m && mensaje) m.textContent = mensaje + ' (' + new Date().toLocaleTimeString() + ')';
+}
+
+window.addEventListener('storage', e => {
+  if (e.key === CLAVE || e.key === null) sincronizar();
+});
+
+const btnSync = document.getElementById('btn-sincronizar');
+if (btnSync) btnSync.addEventListener('click', () => {
+  localStorage.setItem(CLAVE, JSON.stringify(carrito));
+  sincronizar('Carrito sincronizado y guardado');
+});
 
 document.getElementById('productos').addEventListener('click', e => {
   const b = e.target.closest('.btn-agregar');
