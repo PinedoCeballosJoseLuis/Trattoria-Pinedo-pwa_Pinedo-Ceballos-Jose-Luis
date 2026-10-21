@@ -14,6 +14,18 @@
     setTimeout(terminarIntro, 2400);
   }
 
+  // --- Píldora de conexión ---
+  const pildora = document.getElementById('estado-conexion');
+  function pintarConexion() {
+    if (!pildora) return;
+    const en = navigator.onLine;
+    pildora.classList.toggle('sin-conexion', !en);
+    pildora.textContent = en ? 'Conectado' : 'Sin conexión';
+  }
+  window.addEventListener('online', pintarConexion);
+  window.addEventListener('offline', pintarConexion);
+  pintarConexion();
+
   // --- Contador del carrito, barra inferior y pulso del total ---
   const lista = document.getElementById('lista-carrito');
   const total = document.getElementById('total-carrito');
