@@ -1,5 +1,5 @@
-// Carrito de pedido persistido en localStorage (clave "carrito")
-const CLAVE = 'carrito';
+// Carrito de pedido persistido en localStorage (clave propia de Trattoria Pinedo)
+const CLAVE = 'trattoria-pinedo-carrito';
 let carrito = [];
 
 try { carrito = JSON.parse(localStorage.getItem(CLAVE)) || []; } catch (e) { carrito = []; }
@@ -14,6 +14,9 @@ function agregar(producto) {
   if (item) item.cantidad++;
   else carrito.push({ id: producto.id, nombre: producto.nombre, precio: producto.precio, cantidad: 1 });
   guardar();
+  // notificaciones.js expone esta función; si no está cargado, no pasa nada
+  if (typeof notificarPedidoAgregado === 'function') notificarPedidoAgregado(producto.nombre);
+  avisarSiSinConexion();
 }
 
 function sumar(id) {
@@ -83,11 +86,37 @@ window.addEventListener('storage', e => {
   if (e.key === CLAVE || e.key === null) sincronizar();
 });
 
+// Sin conexión: el carrito queda en localStorage y se envía al volver el internet
+function avisarSiSinConexion() {
+  const m = document.getElementById('carrito-mensaje');
+  if (m && !navigator.onLine) {
+    m.textContent = 'Sin conexión: tu pedido se sincronizará cuando vuelva el internet.';
+  }
+}
+
+// Envío simulado del carrito al servidor
+function enviarCarrito() {
+  // Aquí iría el envío real al servidor:
+  // fetch('/api/pedidos', {
+  //   method: 'POST',
+  //   headers: { 'Content-Type': 'application/json' },
+  //   body: JSON.stringify(carrito)
+  // });
+  localStorage.setItem(CLAVE, JSON.stringify(carrito));
+  sincronizar('Conexión recuperada: tu pedido se envió a Trattoria Pinedo');
+}
+
 const btnSync = document.getElementById('btn-sincronizar');
 if (btnSync) btnSync.addEventListener('click', () => {
-  localStorage.setItem(CLAVE, JSON.stringify(carrito));
-  sincronizar('Carrito sincronizado y guardado');
+  if (!navigator.onLine) { avisarSiSinConexion(); return; }
+  enviarCarrito();
 });
+
+// Al volver la conexión, se envía el carrito guardado (si hay productos)
+window.addEventListener('online', () => {
+  if (carrito.length) enviarCarrito();
+});
+window.addEventListener('offline', avisarSiSinConexion);
 
 document.getElementById('productos').addEventListener('click', e => {
   const b = e.target.closest('.btn-agregar');
