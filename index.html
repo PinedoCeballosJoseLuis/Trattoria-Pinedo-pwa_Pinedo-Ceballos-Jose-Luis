@@ -9,6 +9,13 @@
   <!-- Intro de bienvenida: solo una vez por sesión y sin movimiento reducido.
        Si este script falla, la página se ve normal (mejora progresiva). -->
   <script>
+    // Tema elegido por el usuario (si no hay, se sigue al sistema); va aquí para evitar parpadeo
+    try {
+      var t = localStorage.getItem('tema');
+      if (t === 'claro' || t === 'oscuro') document.documentElement.setAttribute('data-tema', t);
+    } catch (e) {}
+  </script>
+  <script>
     try {
       if (!sessionStorage.getItem('intro-vista') &&
           !matchMedia('(prefers-reduced-motion: reduce)').matches) {
@@ -24,7 +31,9 @@
       <symbol id="i-carrito" viewBox="0 0 24 24"><path d="M3 4h2l2.4 11h10.2l2-8H6.2"/><circle cx="9" cy="19.5" r="1.5"/><circle cx="17" cy="19.5" r="1.5"/></symbol>
       <symbol id="i-campana" viewBox="0 0 24 24"><path d="M6 17V11a6 6 0 0 1 12 0v6l1.5 2h-15z"/><path d="M10 21h4"/></symbol>
       <symbol id="i-sincronizar" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14-4.5L4 9"/><path d="M4 4v5h5"/><path d="M4 13a8 8 0 0 0 14 4.5L20 15"/><path d="M20 20v-5h-5"/></symbol>
-      <symbol id="i-mas" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+      <symbol id="i-sol" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></symbol>
+      <symbol id="i-luna" viewBox="0 0 24 24"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></symbol>
+      <symbol id="i-mas"viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
       <symbol id="i-flecha" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></symbol>
     </defs>
   </svg>
@@ -43,6 +52,10 @@
         <h1>Trattoria Pinedo</h1>
       </a>
       <span id="estado-conexion" class="pildora" role="status">Conectado</span>
+      <button id="boton-tema" class="boton-tema" type="button" aria-label="Cambiar a modo oscuro">
+        <svg class="icono i-luna" aria-hidden="true"><use href="#i-luna"/></svg>
+        <svg class="icono i-sol" aria-hidden="true"><use href="#i-sol"/></svg>
+      </button>
       <a id="boton-carrito" class="boton-carrito" href="#pedido" aria-label="Ver mi pedido">
         <svg class="icono" aria-hidden="true"><use href="#i-carrito"/></svg>
         <span id="contador-carrito" class="contador" aria-live="polite">0</span>
@@ -89,16 +102,9 @@
     <div class="panel-lateral">
       <section id="pedido" aria-labelledby="titulo-pedido">
         <h2 id="titulo-pedido">Tu pedido</h2>
-        <p class="ayuda">Cambia las cantidades con + y − o quita un platillo con la X.</p>
+        <p class="ayuda">Cambia las cantidades con + y − o quita un platillo con la X. Si te quedas sin internet, tu pedido se envía solo cuando vuelva la conexión.</p>
         <ul id="lista-carrito" class="lista-carrito" aria-label="Platillos de tu pedido"></ul>
         <p class="total">Total: <strong id="total-carrito">$0.00 MXN</strong></p>
-      </section>
-
-      <section id="sincronizacion" aria-labelledby="titulo-carrito">
-        <h2 id="titulo-carrito">Guarda tu pedido</h2>
-        <p class="ayuda">Si te quedas sin internet, tu pedido se envía solo cuando vuelva la conexión.</p>
-        <ul id="carrito-lista" class="lista-sync" aria-label="Resumen del pedido"></ul>
-        <p class="total">Total: $<span id="carrito-total">0</span> MXN</p>
         <button id="btn-sincronizar" class="btn-agregar btn-icono" type="button">
           <svg class="icono" aria-hidden="true"><use href="#i-sincronizar"/></svg>
           Sincronizar pedido
@@ -108,7 +114,7 @@
 
       <section id="avisos" aria-labelledby="titulo-avisos">
         <h2 id="titulo-avisos">Avisos del pedido</h2>
-        <p class="ayuda">Recibe un aviso cada vez que agregues un platillo.</p>
+        <p class="ayuda">Activa los avisos de tu pedido en este dispositivo.</p>
         <button id="btn-notificar" class="btn-agregar btn-icono" type="button">
           <svg class="icono" aria-hidden="true"><use href="#i-campana"/></svg>
           Activar avisos

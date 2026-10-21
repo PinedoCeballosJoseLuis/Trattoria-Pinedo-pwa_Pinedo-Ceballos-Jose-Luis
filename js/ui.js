@@ -14,6 +14,24 @@
     setTimeout(terminarIntro, 2400);
   }
 
+  // --- Botón de tema claro/oscuro (sin elección guardada, sigue al sistema) ---
+  const botonTema = document.getElementById('boton-tema');
+  const sistemaOscuro = window.matchMedia('(prefers-color-scheme: dark)');
+  function pintarTema() {
+    const elegido = raiz.getAttribute('data-tema');
+    const oscuro = elegido ? elegido === 'oscuro' : sistemaOscuro.matches;
+    raiz.classList.toggle('tema-oscuro', oscuro);
+    if (botonTema) botonTema.setAttribute('aria-label', oscuro ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro');
+  }
+  if (botonTema) botonTema.addEventListener('click', () => {
+    const nuevo = raiz.classList.contains('tema-oscuro') ? 'claro' : 'oscuro';
+    raiz.setAttribute('data-tema', nuevo);
+    try { localStorage.setItem('tema', nuevo); } catch (e) {}
+    pintarTema();
+  });
+  sistemaOscuro.addEventListener('change', pintarTema);
+  pintarTema();
+
   // --- Píldora de conexión ---
   const pildora = document.getElementById('estado-conexion');
   function pintarConexion() {
@@ -67,7 +85,7 @@
     const t = m.textContent.toLowerCase();
     m.classList.remove('exito', 'error', 'aviso');
     if (!t) return;
-    if (/no soporta|no se pudo|error|denegad|sin permiso|no disponible/.test(t)) m.classList.add('error');
+    if (/no soporta|no se pudo|error|denegad|sin permiso|no disponible|está vacío/.test(t)) m.classList.add('error');
     else if (/sin conexi/.test(t)) m.classList.add('aviso');
     else if (/sincroniz|envi|activad|listo|recuperada|guardado/.test(t)) m.classList.add('exito');
   }

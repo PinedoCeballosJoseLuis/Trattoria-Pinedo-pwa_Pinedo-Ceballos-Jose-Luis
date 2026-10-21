@@ -14,8 +14,6 @@ function agregar(producto) {
   if (item) item.cantidad++;
   else carrito.push({ id: producto.id, nombre: producto.nombre, precio: producto.precio, imagen: producto.imagen, cantidad: 1 });
   guardar();
-  // notificaciones.js expone esta función; si no está cargado, no pasa nada
-  if (typeof notificarPedidoAgregado === 'function') notificarPedidoAgregado(producto.nombre);
   avisarSiSinConexion();
 }
 
@@ -65,17 +63,6 @@ function pintarCarrito() {
     lista.appendChild(li);
   });
   document.getElementById('total-carrito').textContent = '$' + calcularTotal().toFixed(2) + ' MXN';
-
-  const listaSync = document.getElementById('carrito-lista');
-  if (listaSync) {
-    listaSync.innerHTML = carrito.length ? '' : '<li class="vacio">Sin productos.</li>';
-    carrito.forEach(i => {
-      const li = document.createElement('li');
-      li.textContent = i.nombre + ' x' + i.cantidad + ' — $' + (i.precio * i.cantidad).toFixed(2);
-      listaSync.appendChild(li);
-    });
-    document.getElementById('carrito-total').textContent = calcularTotal().toFixed(2);
-  }
 }
 
 // Recarga el carrito desde localStorage (sincroniza pestañas/vistas)
@@ -112,6 +99,11 @@ function enviarCarrito() {
 
 const btnSync = document.getElementById('btn-sincronizar');
 if (btnSync) btnSync.addEventListener('click', () => {
+  if (!carrito.length) {
+    const m = document.getElementById('carrito-mensaje');
+    if (m) m.textContent = 'Tu pedido está vacío: agrega al menos un platillo para sincronizar.';
+    return;
+  }
   if (!navigator.onLine) { avisarSiSinConexion(); return; }
   enviarCarrito();
 });

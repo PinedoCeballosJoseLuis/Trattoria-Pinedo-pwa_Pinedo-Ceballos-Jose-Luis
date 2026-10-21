@@ -14,11 +14,6 @@ function mostrarNotificacion(titulo, cuerpo) {
   }
 }
 
-// carrito.js llama a esta función cada vez que se agrega un producto
-function notificarPedidoAgregado(nombre) {
-  mostrarNotificacion('Pedido agregado', nombre + ' se agregó a tu pedido en Trattoria Pinedo.');
-}
-
 if (btnNotificar) btnNotificar.addEventListener('click', async () => {
   // Primero comprobamos que el navegador soporte notificaciones
   if (!('Notification' in window)) {
@@ -28,7 +23,7 @@ if (btnNotificar) btnNotificar.addEventListener('click', async () => {
   const permiso = await Notification.requestPermission();
   if (permiso === 'granted') {
     mostrarMensajeNotif('Notificaciones activadas.');
-    mostrarNotificacion('Trattoria Pinedo', '¡Listo! Te avisaremos cuando agregues platillos a tu pedido.');
+    mostrarNotificacion('Trattoria Pinedo', '¡Listo! Los avisos de Trattoria Pinedo están activados.');
   } else {
     mostrarMensajeNotif('Sin permiso de notificaciones: no te avisaremos de tus pedidos.');
   }
