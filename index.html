@@ -6,38 +6,129 @@
   <meta name="theme-color" content="#14532D">
   <title>Trattoria – Restaurante italiano</title>
   <link rel="stylesheet" href="css/estilos.css">
+  <!-- Intro de bienvenida: solo una vez por sesión y sin movimiento reducido.
+       Si este script falla, la página se ve normal (mejora progresiva). -->
+  <script>
+    try {
+      if (!sessionStorage.getItem('intro-vista') &&
+          !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        document.documentElement.classList.add('intro-activa');
+      }
+    } catch (e) {}
+  </script>
 </head>
 <body>
+  <!-- Íconos SVG reutilizables (trazo, color heredado) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <defs>
+      <symbol id="i-carrito" viewBox="0 0 24 24"><path d="M3 4h2l2.4 11h10.2l2-8H6.2"/><circle cx="9" cy="19.5" r="1.5"/><circle cx="17" cy="19.5" r="1.5"/></symbol>
+      <symbol id="i-campana" viewBox="0 0 24 24"><path d="M6 17V11a6 6 0 0 1 12 0v6l1.5 2h-15z"/><path d="M10 21h4"/></symbol>
+      <symbol id="i-sincronizar" viewBox="0 0 24 24"><path d="M20 11a8 8 0 0 0-14-4.5L4 9"/><path d="M4 4v5h5"/><path d="M4 13a8 8 0 0 0 14 4.5L20 15"/><path d="M20 20v-5h-5"/></symbol>
+      <symbol id="i-mas" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+      <symbol id="i-flecha" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></symbol>
+    </defs>
+  </svg>
+
+  <!-- Pantalla de bienvenida -->
+  <div id="intro" aria-hidden="true">
+    <svg viewBox="0 0 420 110" role="presentation">
+      <text x="210" y="78" text-anchor="middle" class="intro-trazo">Trattoria</text>
+    </svg>
+  </div>
+
   <header class="encabezado">
-    <img src="img/logo.png" alt="Logo de Trattoria Pinedo" class="logo" width="56" height="56">
-    <h1>Trattoria Pinedo</h1>
+    <div class="encabezado-barra">
+      <a class="marca" href="#inicio" aria-label="Trattoria Pinedo, ir al inicio">
+        <img src="img/logo.png" alt="Logo de Trattoria Pinedo" class="logo" width="48" height="48">
+        <h1>Trattoria Pinedo</h1>
+      </a>
+      <a id="boton-carrito" class="boton-carrito" href="#pedido" aria-label="Ver mi pedido">
+        <svg class="icono" aria-hidden="true"><use href="#i-carrito"/></svg>
+        <span id="contador-carrito" class="contador" aria-live="polite">0</span>
+      </a>
+    </div>
+    <nav class="nav-secciones" aria-label="Secciones de la página">
+      <a href="#catalogo" data-seccion="catalogo">Menú</a>
+      <a href="#pedido" data-seccion="pedido">Mi pedido</a>
+      <a href="#avisos" data-seccion="avisos">Avisos</a>
+    </nav>
   </header>
+
+  <section id="inicio" class="hero" aria-labelledby="titulo-hero">
+    <div class="hero-contenido">
+      <p class="hero-etiqueta">Cocina italiana</p>
+      <h2 id="titulo-hero">Pasta fresca, hecha como en casa</h2>
+      <p class="hero-frase">Elige tus platillos, arma tu pedido y recíbelo sin complicaciones.</p>
+      <a class="btn-hero" href="#catalogo">
+        Ver el menú
+        <svg class="icono" aria-hidden="true"><use href="#i-flecha"/></svg>
+      </a>
+    </div>
+    <svg class="onda" viewBox="0 0 1440 60" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0 30 C 240 70, 480 0, 720 30 S 1200 60, 1440 20 V60 H0 Z"/>
+    </svg>
+  </section>
 
   <main>
     <section id="catalogo" aria-labelledby="titulo-catalogo">
-      <h2 id="titulo-catalogo">Nuestro menú</h2>
+      <h2 id="titulo-catalogo">Elige tus platillos</h2>
+      <p class="ayuda">Filtra por categoría y toca "Agregar" para sumar un platillo a tu pedido.</p>
       <div id="filtros" class="filtros" role="group" aria-label="Filtrar por categoría"></div>
-      <div id="productos" class="grid" aria-live="polite">Cargando catálogo…</div>
+      <div id="productos" class="grid" aria-live="polite" aria-busy="true">
+        <!-- Bloques de carga: el catálogo los reemplaza al pintarse -->
+        <div class="esqueleto" aria-hidden="true"></div>
+        <div class="esqueleto" aria-hidden="true"></div>
+        <div class="esqueleto" aria-hidden="true"></div>
+        <div class="esqueleto" aria-hidden="true"></div>
+        <div class="esqueleto" aria-hidden="true"></div>
+        <div class="esqueleto" aria-hidden="true"></div>
+      </div>
     </section>
 
-    <section id="pedido" aria-labelledby="titulo-pedido">
-      <h2 id="titulo-pedido">Tu pedido</h2>
-      <ul id="lista-carrito" class="lista-carrito"></ul>
-      <p class="total">Total: <strong id="total-carrito">$0.00 MXN</strong></p>
-    </section>
-    <section id="sincronizacion" aria-labelledby="titulo-carrito">
-      <h2 id="titulo-carrito">Carrito</h2>
-      <ul id="carrito-lista" class="lista-sync"></ul>
-      <p class="total">Total: $<span id="carrito-total">0</span> MXN</p>
-      <button id="btn-sincronizar" class="btn-agregar" type="button">Sincronizar carrito</button>
-      <p id="carrito-mensaje" class="mensaje"></p>
-      <button id="btn-notificar" class="btn-agregar" type="button">Activar notificaciones</button>
-      <p id="notificaciones-mensaje" class="mensaje"></p>
-    </section>
+    <div class="panel-lateral">
+      <section id="pedido" aria-labelledby="titulo-pedido">
+        <h2 id="titulo-pedido">Tu pedido</h2>
+        <p class="ayuda">Cambia las cantidades con + y − o quita un platillo con la X.</p>
+        <ul id="lista-carrito" class="lista-carrito" aria-label="Platillos de tu pedido"></ul>
+        <p class="total">Total: <strong id="total-carrito">$0.00 MXN</strong></p>
+      </section>
+
+      <section id="sincronizacion" aria-labelledby="titulo-carrito">
+        <h2 id="titulo-carrito">Guarda tu pedido</h2>
+        <p class="ayuda">Si te quedas sin internet, tu pedido se envía solo cuando vuelva la conexión.</p>
+        <ul id="carrito-lista" class="lista-sync" aria-label="Resumen del pedido"></ul>
+        <p class="total">Total: $<span id="carrito-total">0</span> MXN</p>
+        <button id="btn-sincronizar" class="btn-agregar btn-icono" type="button">
+          <svg class="icono" aria-hidden="true"><use href="#i-sincronizar"/></svg>
+          Sincronizar pedido
+        </button>
+        <p id="carrito-mensaje" class="mensaje" role="status" aria-live="polite"></p>
+      </section>
+
+      <section id="avisos" aria-labelledby="titulo-avisos">
+        <h2 id="titulo-avisos">Avisos del pedido</h2>
+        <p class="ayuda">Recibe un aviso cada vez que agregues un platillo.</p>
+        <button id="btn-notificar" class="btn-agregar btn-icono" type="button">
+          <svg class="icono" aria-hidden="true"><use href="#i-campana"/></svg>
+          Activar avisos
+        </button>
+        <p id="notificaciones-mensaje" class="mensaje" role="status" aria-live="polite"></p>
+      </section>
+    </div>
+
   </main>
 
+  <!-- Barra inferior fija, solo en móvil -->
+  <div class="barra-pedido">
+    <div class="barra-total">
+      <span>Total</span>
+      <strong id="barra-total">$0.00 MXN</strong>
+    </div>
+    <a class="btn-ver" href="#pedido">Ver pedido</a>
+  </div>
+
   <footer class="pie">
-    <p>Trattoria Pinedo · Pastas y cocina italiana</p>
+    <p class="pie-nombre">Trattoria Pinedo · Pastas y cocina italiana</p>
     <p>Mar-Dom 1:00 PM - 10:00 PM · Blvd. Principal #420 · Tel: (662) 555-4321</p>
     <p>PINEDO CEBALLOS JOSE LUIS · Grupo 10-1</p>
   </footer>
@@ -52,6 +143,7 @@
   <script src="js/notificaciones.js"></script>
   <!-- <script src="js/geolocalizacion.js"></script> -->
   <!-- <script src="js/app.js"></script> -->
+  <script src="js/ui.js"></script>
   <!--
   <script>
     if ('serviceWorker' in navigator) {
