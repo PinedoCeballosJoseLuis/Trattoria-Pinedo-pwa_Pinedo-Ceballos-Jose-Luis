@@ -12,7 +12,7 @@ function guardar() {
 function agregar(producto) {
   const item = carrito.find(i => i.id === producto.id);
   if (item) item.cantidad++;
-  else carrito.push({ id: producto.id, nombre: producto.nombre, precio: producto.precio, cantidad: 1 });
+  else carrito.push({ id: producto.id, nombre: producto.nombre, precio: producto.precio, imagen: producto.imagen, cantidad: 1 });
   guardar();
   // notificaciones.js expone esta función; si no está cargado, no pasa nada
   if (typeof notificarPedidoAgregado === 'function') notificarPedidoAgregado(producto.nombre);
@@ -49,7 +49,11 @@ function pintarCarrito() {
   carrito.forEach(i => {
     const li = document.createElement('li');
     li.className = 'item-carrito';
+    // Foto del platillo (los pedidos guardados antes no la traen: se busca en el catálogo)
+    const prod = typeof catalogo !== 'undefined' ? catalogo.find(x => x.id === i.id) : null;
+    const foto = i.imagen || (prod && prod.imagen) || '';
     li.innerHTML =
+      (foto ? '<img class="item-foto" src="' + foto + '" alt="' + i.nombre + '">' : '') +
       '<span class="item-nombre">' + i.nombre + '</span>' +
       '<span class="item-controles">' +
         '<button type="button" data-accion="restar" data-id="' + i.id + '" aria-label="Restar">−</button>' +

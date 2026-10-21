@@ -452,7 +452,7 @@ main h2 {
 .lista-carrito, .lista-sync { list-style: none; padding: 0; display: grid; gap: .5rem; }
 .item-carrito {
   display: grid;
-  grid-template-columns: 1fr auto;
+  grid-template-columns: 64px 1fr auto;
   align-items: center;
   gap: .5rem .75rem;
   background: var(--color-seccion);
@@ -460,6 +460,14 @@ main h2 {
   border-radius: 12px;
   padding: .6rem .75rem;
   animation: entrada .3s ease both;
+}
+.item-foto {
+  grid-row: 1 / span 2;
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 10px;
+  background: var(--color-borde);
 }
 .item-nombre { font-weight: 600; }
 .item-controles { display: flex; align-items: center; gap: .5rem; font-weight: 700; }
