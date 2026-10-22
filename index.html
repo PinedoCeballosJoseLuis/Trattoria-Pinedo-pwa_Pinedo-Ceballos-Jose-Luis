@@ -65,6 +65,7 @@
       <a href="#catalogo" data-seccion="catalogo">Menú</a>
       <a href="#pedido" data-seccion="pedido">Mi pedido</a>
       <a href="#avisos" data-seccion="avisos">Avisos</a>
+      <a href="#sucursal" data-seccion="sucursal">Dónde estamos</a>
     </nav>
   </header>
 
@@ -121,6 +122,13 @@
         </button>
         <p id="notificaciones-mensaje" class="mensaje" role="status" aria-live="polite"></p>
       </section>
+      <section id="sucursal" aria-labelledby="titulo-sucursal">
+        <h2 id="titulo-sucursal">Cómo llegar</h2>
+        <p class="ayuda"><strong>Dónde nos encontramos:</strong> Trattoria Pinedo, Blvd. Principal #420, Hermosillo, Sonora. Comparte tu ubicación para ver la ruta a la sucursal.</p>
+        <button id="btn-ubicacion" class="btn-agregar btn-icono" type="button">Ver ruta a la sucursal</button>
+        <p id="ubicacion-mensaje" class="mensaje" role="status" aria-live="polite"></p>
+        <div id="mapa-ruta"></div>
+      </section>
     </div>
 
   </main>
@@ -141,14 +149,14 @@
   </footer>
 
   <!-- Archivos que aún no existen: se activan conforme se crean -->
-  <!-- <link rel="manifest" href="manifest.json"> -->
-  <!-- <link rel="icon" href="icons/icon.svg" type="image/svg+xml"> -->
-  <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"> -->
-  <!-- <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script> -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script src="js/csr.js"></script>
   <script src="js/carrito.js"></script>
   <script src="js/notificaciones.js"></script>
-  <!-- <script src="js/geolocalizacion.js"></script> -->
+  <script src="js/geolocalizacion.js"></script>
   <!-- <script src="js/app.js"></script> -->
   <script src="js/ui.js"></script>
   <!--

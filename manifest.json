@@ -1,0 +1,19 @@
+{
+  "id": "./index.html",
+  "name": "Trattoria Pinedo",
+  "short_name": "Trattoria",
+  "description": "Menú de cocina italiana y pedidos en línea de Trattoria Pinedo.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "categories": ["food", "shopping"],
+  "lang": "es",
+  "theme_color": "#14532D",
+  "background_color": "#FFFBEB",
+  "icons": [
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}
