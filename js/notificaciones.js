@@ -10,7 +10,11 @@ function mostrarMensajeNotif(texto) {
 function mostrarNotificacion(titulo, cuerpo) {
   if (!('Notification' in window)) return;
   if (Notification.permission === 'granted') {
-    new Notification(titulo, { body: cuerpo });
+    new Notification(titulo, {
+      body: cuerpo,
+      icon: 'icons/icon-192.png',
+      badge: 'icons/icon-192.png'
+    });
   }
 }
 
