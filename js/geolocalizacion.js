@@ -102,6 +102,10 @@ if (btnUbicacion) btnUbicacion.addEventListener('click', () => {
     mostrarMensajeUbicacion('Tu navegador no soporta geolocalización.', 'error');
     return;
   }
+  if (!navigator.onLine) {
+    mostrarMensajeUbicacion('Necesitas conexión a internet para ver la ruta.', 'aviso');
+    return;
+  }
   mostrarMensajeUbicacion('Obteniendo tu ubicación…');
   navigator.geolocation.getCurrentPosition(
     (pos) => dibujarMapa({ lat: pos.coords.latitude, lng: pos.coords.longitude }),
@@ -110,5 +114,13 @@ if (btnUbicacion) btnUbicacion.addEventListener('click', () => {
   );
 });
 
-// Al cargar la página, el mapa ya muestra la sucursal como referencia
-iniciarMapa();
+// Al cargar la página, el mapa ya muestra la sucursal como referencia.
+// Sin conexión no se crea, porque los mosaicos de OpenStreetMap no están en caché y llenarían la consola de errores.
+if (navigator.onLine) iniciarMapa();
+else mostrarMensajeUbicacion('Sin conexión: el mapa se mostrará cuando vuelva el internet.', 'aviso');
+
+window.addEventListener('online', () => {
+  iniciarMapa();
+  if (mapa) mapa.invalidateSize();
+  mostrarMensajeUbicacion('');
+});
